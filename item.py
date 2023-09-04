@@ -10,7 +10,7 @@ class Item :
         assert quantity >= 0,f"the {quantity} is not greater than 0 "
         # assign value to self object
         self.__name = name
-        self.price = price
+        self.__price = price
         self.quantity = quantity
         # actions to execute
         Item.all_items.append(self)
@@ -19,12 +19,17 @@ class Item :
     @property
     def name(self):
         return self.__name
+
     @name.setter
     def name(self , value):
         if type(value) != str :
             raise Exception("name should only be an string")
         else:
             self.__name = value
+
+    @property
+    def price(self):
+        return self.__name
 
 
     @classmethod
@@ -54,7 +59,9 @@ class Item :
     def calculate_total_price(self):
         return self.price * self.quantity
     def apply_discount(self):
-        self.price = self.price * self.pay_rate
+        self.__price = self.__price * self.pay_rate
+    def apply_increment(self , increment):
+        self.__price  = self.__price + self.__price * increment
 
     def __repr__(self) :
         return  f"{self.__class__.__name__}( '{self.name}' , '{self.price}' , '{self.quantity}' )"
